@@ -28,23 +28,13 @@
   padding: 0 12px;
   border-radius: calc(var(--h) * 0.26);
   background: var(--plaque);
-  color: #fff;
+  color: var(--paper);
   font-family: var(--font-display);
   font-weight: 800;
   font-size: calc(var(--h) * 0.5);
   line-height: 1;
   letter-spacing: 0.01em;
-  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.25) inset, 0 3px 8px rgba(20, 33, 61, 0.28);
   white-space: nowrap;
-}
-
-.plaque::before {
-  content: '';
-  position: absolute;
-  inset: calc(var(--h) * 0.07);
-  border: calc(var(--h) * 0.035 + 0.5px) solid rgba(255, 255, 255, 0.92);
-  border-radius: calc(var(--h) * 0.2);
-  pointer-events: none;
 }
 
 .plaque-lg {
@@ -392,6 +382,7 @@
   gap: 12px;
   padding: 14px 12px 6px 20px;
 }
+
 
 .sheet-head h2 {
   flex: 1;

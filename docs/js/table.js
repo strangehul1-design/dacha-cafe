@@ -39,7 +39,7 @@ function App() {
     // при смене вкладки всегда показываем её с начала, без плавной прокрутки
     window.scrollTo({ top: 0, behavior: 'instant' });
   }, [tab]);
-  const [layout, setLayout] = useStored('dacha:layout', 'list');
+  const [layout, setLayout] = useStored('dacha:layout2', 'big');
   const [introSeen, setIntroSeen] = useStored('dacha:intro', false);
   const [open, setOpen] = useState({});
   const [welcomeDismissed, setWelcomeDismissed] = useState(false);

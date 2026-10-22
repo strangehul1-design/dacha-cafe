@@ -699,3 +699,177 @@
     margin-top: -8px;
   }
 }
+
+/* ───────── кинематографичные карточки (крупное фото, текст поверх) ───────── */
+
+.dish-list[data-layout='big'],
+.dish-list[data-layout='cards'] {
+  display: grid;
+  gap: 16px;
+  padding-top: 12px;
+}
+
+.dish-list[data-layout='big'] {
+  grid-template-columns: 1fr;
+}
+
+.dish-list[data-layout='cards'] {
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.dish-list[data-layout='big'] .dish,
+.dish-list[data-layout='cards'] .dish {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+  gap: 0;
+  padding: 0;
+  border: 0;
+  border-radius: var(--r-l);
+  overflow: hidden;
+  background: var(--surface-2);
+  box-shadow: var(--shadow-1);
+  transform: none;
+}
+
+.dish-list[data-layout='big'] .dish:hover,
+.dish-list[data-layout='cards'] .dish:hover {
+  transform: none;
+}
+
+.dish-list[data-layout='big'] .dish-media,
+.dish-list[data-layout='cards'] .dish-media {
+  grid-area: 1 / 1;
+  order: 0;
+  margin: 0;
+  border-radius: 0;
+  overflow: visible;
+}
+
+.dish-list[data-layout='big'] .photo {
+  aspect-ratio: 16 / 11;
+  border-radius: 0;
+}
+
+.dish-list[data-layout='cards'] .photo {
+  aspect-ratio: 4 / 3;
+  border-radius: 0;
+}
+
+.dish-list[data-layout='big'] .dish-body,
+.dish-list[data-layout='cards'] .dish-body {
+  grid-area: 1 / 1;
+  z-index: 2;
+  align-self: end;
+  padding: 90px 80px 18px 20px;
+  gap: 4px;
+  color: #fff;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.82), rgba(0, 0, 0, 0.42) 58%, transparent);
+}
+
+.dish-list[data-layout='big'] .dish-name,
+.dish-list[data-layout='cards'] .dish-name {
+  color: #fff;
+  font-size: 23px;
+  letter-spacing: -0.03em;
+}
+
+.dish-list[data-layout='big'] .dish-desc,
+.dish-list[data-layout='cards'] .dish-desc {
+  color: rgba(255, 255, 255, 0.86);
+  -webkit-line-clamp: 2;
+}
+
+.dish-list[data-layout='big'] .dish-meta,
+.dish-list[data-layout='cards'] .dish-meta {
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.dish-list[data-layout='big'] .dish-price,
+.dish-list[data-layout='cards'] .dish-price {
+  color: #fff;
+  padding-top: 4px;
+  font-size: 21px;
+}
+
+.dish-list[data-layout='big'] .dish-ctl,
+.dish-list[data-layout='cards'] .dish-ctl {
+  right: 16px;
+  bottom: 16px;
+  z-index: 3;
+}
+
+.dish-list[data-layout='big'] .dish-add,
+.dish-list[data-layout='big'] .dish-ctl .stepper,
+.dish-list[data-layout='cards'] .dish-add,
+.dish-list[data-layout='cards'] .dish-ctl .stepper {
+  border-color: transparent;
+}
+
+.dish-list[data-layout='big'] .dish-hit,
+.dish-list[data-layout='cards'] .dish-hit {
+  top: 16px;
+  left: 0;
+  border-radius: 0 10px 10px 0;
+}
+
+.dish-list[data-layout='big'] .dish-hit::after,
+.dish-list[data-layout='cards'] .dish-hit::after {
+  display: none;
+}
+
+.dish-list[data-layout='big'] .dish-stop,
+.dish-list[data-layout='cards'] .dish-stop {
+  inset: 16px 16px auto auto;
+  margin: 0;
+}
+
+.dish-list[data-layout='big'] .dish.is-stop .dish-name,
+.dish-list[data-layout='big'] .dish.is-stop .dish-price,
+.dish-list[data-layout='cards'] .dish.is-stop .dish-name,
+.dish-list[data-layout='cards'] .dish.is-stop .dish-price {
+  color: #fff;
+  opacity: 0.8;
+}
+
+/* блюдо без фото: обычная светлая карточка */
+.dish-list[data-layout='big'] .dish.no-photo,
+.dish-list[data-layout='cards'] .dish.no-photo {
+  grid-template-rows: auto;
+  background: var(--surface);
+  box-shadow: inset 0 0 0 1.5px var(--line);
+}
+
+.dish-list[data-layout='big'] .dish.no-photo .dish-body,
+.dish-list[data-layout='cards'] .dish.no-photo .dish-body {
+  position: static;
+  padding: 20px 80px 20px 20px;
+  background: none;
+  color: var(--ink);
+}
+
+.dish-list[data-layout='big'] .dish.no-photo .dish-name,
+.dish-list[data-layout='cards'] .dish.no-photo .dish-name,
+.dish-list[data-layout='big'] .dish.no-photo .dish-price,
+.dish-list[data-layout='cards'] .dish.no-photo .dish-price {
+  color: var(--ink);
+}
+
+.dish-list[data-layout='big'] .dish.no-photo .dish-desc,
+.dish-list[data-layout='cards'] .dish.no-photo .dish-desc {
+  color: var(--ink-2);
+}
+
+.dish-list[data-layout='big'] .dish.no-photo .dish-media,
+.dish-list[data-layout='cards'] .dish.no-photo .dish-media {
+  align-self: end;
+  justify-self: end;
+  padding: 0 16px 16px;
+  position: relative;
+  z-index: 3;
+}
+
+.menu-cat-head h2 {
+  letter-spacing: -0.035em;
+}

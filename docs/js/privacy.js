@@ -5,7 +5,7 @@ const root = document.getElementById('root');
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
 
 try {
-  const r = await fetch('/dacha-cafe/data/privacy.json').then((x) => x.json());
+  const r = await fetch('C:/Program Files/Git/dacha-cafe/data/privacy.json').then((x) => x.json());
   const c = r.contacts;
   const body = r.text
     ? `<div class="legal">${esc(r.text)}</div>`
@@ -22,7 +22,7 @@ try {
        <p>Пока это нужно для выполнения заказа и учёта работы кафе. Вы можете попросить удалить ваши данные — позвоните нам или напишите.</p>
        <h2>Как с нами связаться</h2>
        <p>${esc(c.address)}${c.place ? ', ' + esc(c.place) : ''}.<br />Телефон: ${esc(c.phone)}${c.email ? '<br />Почта: ' + esc(c.email) : ''}</p>`;
-  root.innerHTML = `<a class="back" href="/dacha-cafe/">← На главную</a><h1>Политика конфиденциальности</h1>${body}`;
+  root.innerHTML = `<a class="back" href="C:/Program Files/Git/dacha-cafe/">← На главную</a><h1>Политика конфиденциальности</h1>${body}`;
 } catch {
   root.querySelector('p').textContent = 'Не удалось загрузить страницу. Попробуйте обновить её.';
 }

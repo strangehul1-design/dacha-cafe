@@ -1,37 +1,13 @@
-/* Дизайн-токены «Дача для друзей».
-   Образ из дачной жизни: эмалированная табличка с номером дома (кобальт и белая рамка),
-   клетчатая клеёнка (помидорный гингем), огуречная зелень и «масляный» жёлтый ценник. */
+/* Дизайн-токены «Дача для друзей»: светлый вариант в духе Apple.
+   Белый и светло-серый фон, крупные фото, тёплый оранжевый акцент.
+   «Дача» осталась в мелочах: клетчатая полоска и табличка с номером стола. */
 
 @font-face {
-  font-family: 'Podkova';
-  font-style: normal;
-  font-weight: 400 800;
-  font-display: swap;
-  src: url('/dacha-cafe/fonts/podkova-cyrillic-wght-normal.woff2') format('woff2');
-  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
-}
-@font-face {
-  font-family: 'Podkova';
-  font-style: normal;
-  font-weight: 400 800;
-  font-display: swap;
-  src: url('/dacha-cafe/fonts/podkova-latin-ext-wght-normal.woff2') format('woff2');
-  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
-}
-@font-face {
-  font-family: 'Podkova';
-  font-style: normal;
-  font-weight: 400 800;
-  font-display: swap;
-  src: url('/dacha-cafe/fonts/podkova-latin-wght-normal.woff2') format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-@font-face {
   font-family: 'Onest';
   font-style: normal;
   font-weight: 100 900;
   font-display: swap;
-  src: url('/dacha-cafe/fonts/onest-cyrillic-wght-normal.woff2') format('woff2');
+  src: url('C:/Program Files/Git/dacha-cafe/fonts/onest-cyrillic-wght-normal.woff2') format('woff2');
   unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
 }
 @font-face {
@@ -39,7 +15,7 @@
   font-style: normal;
   font-weight: 100 900;
   font-display: swap;
-  src: url('/dacha-cafe/fonts/onest-latin-ext-wght-normal.woff2') format('woff2');
+  src: url('C:/Program Files/Git/dacha-cafe/fonts/onest-latin-ext-wght-normal.woff2') format('woff2');
   unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 @font-face {
@@ -47,63 +23,59 @@
   font-style: normal;
   font-weight: 100 900;
   font-display: swap;
-  src: url('/dacha-cafe/fonts/onest-latin-wght-normal.woff2') format('woff2');
+  src: url('C:/Program Files/Git/dacha-cafe/fonts/onest-latin-wght-normal.woff2') format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
 :root {
   color-scheme: light;
 
-  /* бумага и чернила: эмалево-белый и тёмно-синие чернила */
-  --paper: #f4f6f1;
+  --paper: #f5f5f7;
   --surface: #ffffff;
-  --surface-2: #ebeee7;
-  --ink: #14213d;
-  --ink-2: #48557a;
-  --ink-3: #6f7a98;
-  --line: rgba(20, 33, 61, 0.12);
-  --line-strong: rgba(20, 33, 61, 0.24);
+  --surface-2: #ececf0;
+  --ink: #1d1d1f;
+  --ink-2: #55555b;
+  --ink-3: #6e6e73;
+  --line: rgba(0, 0, 0, 0.09);
+  --line-strong: rgba(0, 0, 0, 0.2);
 
-  /* эмаль — основной цвет действий */
-  --primary: #1c3f94;
-  --primary-hover: #163380;
+  /* оранжевый — основной цвет действий */
+  --primary: #d9480f;
+  --primary-hover: #bf3f0c;
   --on-primary: #ffffff;
-  --primary-soft: #e3e9f8;
-  --on-soft: #1c3f94;
-  --plaque: #1c3f94;
+  --primary-soft: #ffeadf;
+  --on-soft: #a93a0a;
+  --plaque: #1d1d1f;
 
-  /* помидор — акцент, цена, важные кнопки */
-  --accent: #d93a25;
-  --accent-hover: #bf2f1c;
+  --accent: #d9480f;
+  --accent-hover: #bf3f0c;
   --on-accent: #ffffff;
-  --accent-soft: #fde7e2;
+  --accent-soft: #ffeadf;
 
-  /* огурец — «без мяса», успех */
   --leaf: #2c7a49;
-  --leaf-soft: #e0f1e6;
+  --leaf-soft: #e1f2e7;
 
-  /* масло — ценник, подсветка */
   --butter: #ffd44a;
   --butter-ink: #3a2c00;
-  --butter-soft: #fff3c4;
+  --butter-soft: #fff4d6;
 
   --danger: #c62828;
   --danger-soft: #fde8e8;
 
-  --gingham-c: rgba(217, 58, 37, 0.15);
-  --hl: #ffd44a; /* маркерная подсветка цены */
-  --scrim: rgba(10, 18, 42, 0.52);
+  --gingham-c: rgba(217, 72, 15, 0.14);
+  --hl: transparent;
+  --scrim: rgba(0, 0, 0, 0.45);
 
-  --shadow-1: 0 1px 2px rgba(20, 33, 61, 0.06), 0 6px 16px rgba(20, 33, 61, 0.07);
-  --shadow-2: 0 14px 40px rgba(20, 33, 61, 0.22);
-  --shadow-up: 0 -8px 30px rgba(20, 33, 61, 0.14);
+  --shadow-1: 0 1px 2px rgba(0, 0, 0, 0.05), 0 8px 24px rgba(0, 0, 0, 0.07);
+  --shadow-2: 0 18px 50px rgba(0, 0, 0, 0.2);
+  --shadow-up: 0 -8px 30px rgba(0, 0, 0, 0.12);
 
-  --r-xs: 8px;
-  --r-s: 12px;
-  --r-m: 18px;
-  --r-l: 26px;
+  --r-xs: 10px;
+  --r-s: 14px;
+  --r-m: 22px;
+  --r-l: 30px;
 
-  --font-display: 'Podkova', Rockwell, 'Roboto Slab', Georgia, serif;
+  --font-display: 'Onest', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   --font-text: 'Onest', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 
   --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
@@ -119,66 +91,37 @@
   }
 }
 
-/* Тёмная тема: в зале вечером телефон не должен слепить */
+/* Тёмная тема включается только явно (data-theme="dark"): по умолчанию сайт всегда светлый */
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme='light']) {
+  :root[data-theme='dark'] {
     color-scheme: dark;
-    --paper: #0d1630;
-    --surface: #16224a;
-    --surface-2: #1d2b5a;
-    --ink: #eef2ff;
-    --ink-2: #b9c3e2;
-    --ink-3: #8f9bc0;
-    --line: rgba(238, 242, 255, 0.14);
-    --line-strong: rgba(238, 242, 255, 0.28);
-    --primary: #4268d8;
-    --primary-hover: #5577e6;
-    --primary-soft: rgba(66, 104, 216, 0.22);
-    --on-soft: #cfdbff;
-    --accent: #ff6f59;
-    --accent-hover: #ff8470;
-    --on-accent: #1d0a06;
-    --accent-soft: rgba(255, 111, 89, 0.18);
+    --paper: #000000;
+    --surface: #1c1c1e;
+    --surface-2: #2c2c2e;
+    --ink: #f5f5f7;
+    --ink-2: #c7c7cc;
+    --ink-3: #98989f;
+    --line: rgba(255, 255, 255, 0.12);
+    --line-strong: rgba(255, 255, 255, 0.28);
+    --primary: #ff7a3d;
+    --primary-hover: #ff8f5c;
+    --on-primary: #1a0b02;
+    --primary-soft: rgba(255, 122, 61, 0.2);
+    --on-soft: #ffb48f;
+    --plaque: #f5f5f7;
+    --accent: #ff7a3d;
+    --accent-hover: #ff8f5c;
+    --on-accent: #1a0b02;
+    --accent-soft: rgba(255, 122, 61, 0.2);
     --leaf: #5dc487;
     --leaf-soft: rgba(93, 196, 135, 0.16);
     --butter-soft: rgba(255, 212, 74, 0.16);
     --danger: #ff7b7b;
     --danger-soft: rgba(255, 123, 123, 0.16);
-    --gingham-c: rgba(255, 111, 89, 0.16);
-    --hl: rgba(255, 212, 74, 0.34);
-    --scrim: rgba(2, 6, 20, 0.66);
-    --shadow-1: 0 1px 2px rgba(0, 0, 0, 0.3), 0 6px 16px rgba(0, 0, 0, 0.25);
-    --shadow-2: 0 14px 40px rgba(0, 0, 0, 0.5);
-    --shadow-up: 0 -8px 30px rgba(0, 0, 0, 0.4);
+    --gingham-c: rgba(255, 122, 61, 0.18);
+    --scrim: rgba(0, 0, 0, 0.66);
+    --shadow-1: 0 1px 2px rgba(0, 0, 0, 0.3), 0 8px 24px rgba(0, 0, 0, 0.3);
+    --shadow-2: 0 18px 50px rgba(0, 0, 0, 0.6);
+    --shadow-up: 0 -8px 30px rgba(0, 0, 0, 0.5);
   }
-}
-:root[data-theme='dark'] {
-  --on-soft: #cfdbff;
-  color-scheme: dark;
-  --paper: #0d1630;
-  --surface: #16224a;
-  --surface-2: #1d2b5a;
-  --ink: #eef2ff;
-  --ink-2: #b9c3e2;
-  --ink-3: #8f9bc0;
-  --line: rgba(238, 242, 255, 0.14);
-  --line-strong: rgba(238, 242, 255, 0.28);
-  --primary: #4268d8;
-  --primary-hover: #5577e6;
-  --primary-soft: rgba(66, 104, 216, 0.22);
-  --accent: #ff6f59;
-  --accent-hover: #ff8470;
-  --on-accent: #1d0a06;
-  --accent-soft: rgba(255, 111, 89, 0.18);
-  --leaf: #5dc487;
-  --leaf-soft: rgba(93, 196, 135, 0.16);
-  --butter-soft: rgba(255, 212, 74, 0.16);
-  --danger: #ff7b7b;
-  --danger-soft: rgba(255, 123, 123, 0.16);
-  --gingham-c: rgba(255, 111, 89, 0.16);
-    --hl: rgba(255, 212, 74, 0.34);
-  --scrim: rgba(2, 6, 20, 0.66);
-  --shadow-1: 0 1px 2px rgba(0, 0, 0, 0.3), 0 6px 16px rgba(0, 0, 0, 0.25);
-  --shadow-2: 0 14px 40px rgba(0, 0, 0, 0.5);
-  --shadow-up: 0 -8px 30px rgba(0, 0, 0, 0.4);
 }

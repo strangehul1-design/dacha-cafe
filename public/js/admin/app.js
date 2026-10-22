@@ -8,7 +8,6 @@ import { StopView } from './stop.js';
 import { MenuAdmin } from './menu.js';
 import { OrdersView, isOpenEntry } from './orders.js';
 import { TablesView, PrintHost } from './tables.js';
-import { LunchView, lunchIsStale } from './lunch.js';
 import { SettingsView } from './settings.js';
 
 const ROUTES = [
@@ -16,7 +15,6 @@ const ROUTES = [
   ['stop', 'Стоп-лист', 'Стоп', 'toggle'],
   ['menu', 'Меню и цены', 'Меню', 'menu'],
   ['tables', 'Столы и QR', 'Столы', 'qr'],
-  ['lunch', 'Дачные обеды', 'Обеды', 'calendar'],
   ['settings', 'Настройки', 'Ещё', 'gear'],
 ];
 
@@ -162,7 +160,7 @@ function App() {
   const nav = role === 'kitchen' ? ROUTES.filter((r) => r[0] === 'stop') : ROUTES;
   const current = nav.find((r) => r[0] === route)?.[0] || nav[0][0];
   const noPrice = data.dishes?.filter((d) => d.needsPrice).length || 0;
-  const pill = { orders: open, menu: noPrice, lunch: role === 'admin' && lunchIsStale(data) ? '!' : 0 };
+  const pill = { orders: open, menu: noPrice };
 
   return html`<div class="adm">
     <aside class="adm-side" aria-label="Разделы админки">
@@ -187,7 +185,6 @@ function App() {
         ${current === 'stop' && html`<${StopView} data=${data} setData=${setData} role=${role} />`}
         ${current === 'menu' && role === 'admin' && html`<${MenuAdmin} data=${data} setData=${setData} />`}
         ${current === 'tables' && role === 'admin' && html`<${TablesView} data=${data} setData=${setData} onPrint=${setPrintTables} />`}
-        ${current === 'lunch' && role === 'admin' && html`<${LunchView} data=${data} setData=${setData} goto=${goto} />`}
         ${current === 'settings' && role === 'admin' && html`<${SettingsView} data=${data} setData=${setData} refresh=${refresh} />`}
       </main>
     </div>

@@ -18,13 +18,11 @@ before(async () => {
 });
 after(() => t.stop());
 
-test('меню: скрытые позиции без цены не попадают к гостям, списки обеда подставлены', () => {
+test('меню: скрытые позиции без цены не попадают к гостям, бизнес-ланчей нет', () => {
   const names = menu.categories.flatMap((c) => c.items.map((i) => i.name));
   assert.ok(!names.includes('Диабло'), 'позиция без цены скрыта');
   assert.ok(names.includes('Пицца гавайская'));
-  const lunch = menu.categories.find((c) => c.id === 'lunch');
-  const combo = lunch.items.find((i) => i.name.startsWith('Бизнес-ланч'));
-  assert.equal(combo.options.find((o) => o.id === 'soup').choices.length, 4);
+  assert.ok(!menu.categories.find((c) => c.id === 'lunch'), 'раздела дачных обедов нет');
   assert.ok(!menu.categories.find((c) => c.id === 'drinks'), 'пустой раздел «Напитки» не показывается');
 });
 
@@ -349,7 +347,7 @@ test('страницы: сайт, QR-меню, админка и политик�
     assert.match(await r.text(), new RegExp(needle), url);
     assert.match(r.headers.get('content-security-policy'), /script-src 'self'/);
   }
-  for (const f of ['/fonts/podkova-cyrillic-wght-normal.woff2', '/fonts/onest-latin-ext-wght-normal.woff2', '/js/vendor/htm-preact.js', '/css/tokens.css', '/img/favicon.svg']) {
+  for (const f of ['/fonts/onest-cyrillic-wght-normal.woff2', '/fonts/onest-latin-ext-wght-normal.woff2', '/js/vendor/htm-preact.js', '/css/tokens.css', '/img/favicon.svg']) {
     assert.equal((await fetch(t.base + f)).status, 200, f);
   }
   const priv = await (await fetch(t.base + '/api/privacy')).json();

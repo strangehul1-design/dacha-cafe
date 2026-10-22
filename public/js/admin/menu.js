@@ -9,8 +9,6 @@ import { Thumb } from './stop.js';
 
 const norm = (s) => String(s || '').toLowerCase().replace(/ё/g, 'е');
 const rid = () => Math.random().toString(36).slice(2, 8);
-const LUNCH_REFS = { 'lunch.salads': 'Салаты дня', 'lunch.soups': 'Супы дня', 'lunch.hots': 'Горячее дня', 'lunch.sides': 'Гарниры', 'lunch.drinks': 'Напитки' };
-const REF_NAMES = { 'lunch.salads': 'Салат', 'lunch.soups': 'Суп', 'lunch.hots': 'Горячее', 'lunch.sides': 'Гарнир', 'lunch.drinks': 'Напиток' };
 
 export function MenuAdmin({ data, setData }) {
   const [q, setQ] = useState('');
@@ -279,8 +277,7 @@ function DishEditor({ open, onClose, dish, data, onSaved, onDeleted }) {
 
 function OptionsEditor({ options, onChange }) {
   const upd = (i, patch) => onChange(options.map((g, k) => (k === i ? { ...g, ...patch } : g)));
-  const addGroup = (ref) =>
-    onChange([...options, ref ? { id: rid(), name: REF_NAMES[ref], required: false, ref } : { id: rid(), name: '', required: true, choices: [{ id: rid(), name: '', price: 0 }] }]);
+  const addGroup = () => onChange([...options, { id: rid(), name: '', required: true, choices: [{ id: rid(), name: '', price: 0 }] }]);
 
   return html`<div class="field">
     <span class="label">Варианты выбора</span>
@@ -292,24 +289,18 @@ function OptionsEditor({ options, onChange }) {
           <button class="icon-btn" aria-label="Удалить группу" onClick=${() => onChange(options.filter((_, k) => k !== i))}><${Icon} name="trash" size=20 /></button>
         </div>
         <${Toggle} checked=${g.required} onChange=${(v) => upd(i, { required: v })}>Выбрать обязательно<//>
-        ${g.ref
-          ? html`<p class="muted" style="font-size:14px">Список берётся из раздела «Дачные обеды» (${LUNCH_REFS[g.ref]}). Меняется там — одним местом на все блюда.</p>`
-          : html`${g.choices.map(
+        ${g.choices.map(
               (c, k) => html`<div class="choice" key=${c.id}>
                 <input class="input" placeholder="Вариант" value=${c.name} onInput=${(e) => upd(i, { choices: g.choices.map((x, m) => (m === k ? { ...x, name: e.currentTarget.value } : x)) })} aria-label="Вариант" />
                 <input class="input" type="number" min="0" inputmode="numeric" placeholder="+0 ₽" value=${c.price || ''} onInput=${(e) => upd(i, { choices: g.choices.map((x, m) => (m === k ? { ...x, price: Number(e.currentTarget.value) || 0 } : x)) })} aria-label="Доплата, ₽" />
                 <button class="icon-btn" aria-label="Убрать вариант" onClick=${() => upd(i, { choices: g.choices.filter((_, m) => m !== k) })}><${Icon} name="x" size=18 /></button>
               </div>`,
             )}
-            <button class="btn btn-sm btn-quiet" style="justify-self:start" onClick=${() => upd(i, { choices: [...g.choices, { id: rid(), name: '', price: 0 }] })}><${Icon} name="plus" size=16 />Вариант</button>`}
+        <button class="btn btn-sm btn-quiet" style="justify-self:start" onClick=${() => upd(i, { choices: [...g.choices, { id: rid(), name: '', price: 0 }] })}><${Icon} name="plus" size=16 />Вариант</button>
       </div>`,
     )}
     <div class="row" style="flex-wrap:wrap;gap:8px">
-      <button class="btn btn-sm btn-ghost" onClick=${() => addGroup(null)}><${Icon} name="plus" size=16 />Свой список</button>
-      <select class="select" style="width:auto;min-height:38px;padding:6px 36px 6px 12px;font-size:14px;border-radius:11px" aria-label="Список из «Дачных обедов»" value="" onChange=${(e) => (e.currentTarget.value && addGroup(e.currentTarget.value), (e.currentTarget.value = ''))}>
-        <option value="">+ Список из «Дачных обедов»</option>
-        ${Object.entries(LUNCH_REFS).map(([k, v]) => html`<option key=${k} value=${k}>${v}</option>`)}
-      </select>
+      <button class="btn btn-sm btn-ghost" onClick=${addGroup}><${Icon} name="plus" size=16 />Новая группа</button>
     </div>
   </div>`;
 }

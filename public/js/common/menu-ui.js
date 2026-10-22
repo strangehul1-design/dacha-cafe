@@ -121,7 +121,7 @@ export function scrollToCategory(id) {
  * Вся витрина: поиск, переключатель вида, навигация, разделы.
  * Логику корзины ведёт родитель — сюда приходят qtyFor / onAdd / onDec / onOpen.
  */
-export function MenuView({ menu, layout, onLayout, allowLayoutToggle = true, defaultLayouts = ['list', 'grid'], qtyFor, totalQtyFor, onAdd, onDec, onOpen, spyOffset = 110, header = null }) {
+export function MenuView({ menu, layout, onLayout, allowLayoutToggle = true, defaultLayouts = ['list', 'big'], qtyFor, totalQtyFor, onAdd, onDec, onOpen, spyOffset = 110, header = null }) {
   const [query, setQuery] = useState('');
   const q = norm(query).trim();
   const tokens = q ? q.split(/\s+/) : [];

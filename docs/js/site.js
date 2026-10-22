@@ -15,7 +15,7 @@ const REVIEWS = [
   { name: 'Сергей Соколов', text: 'Работникам кафе «Дача» хочется сказать огромное спасибо за вкусную еду, вежливый персонал и адекватные цены. Это наше любимое семейное кафе.' },
 ];
 
-const HERO_DISHES = ['Пицца охотничья', 'Говядина wok', 'Шеф-бургер', 'Шоколадный лава-кейк'];
+const HERO_DISH = 'Шашлык из свинины';
 const PAY_LABELS = { cash: ['Наличными', 'cash'], card: ['Картой', 'card'], sbp: ['По СБП', 'qr'] };
 const telHref = (p) => 'tel:+' + String(p || '').replace(/\D/g, '').replace(/^8/, '7');
 const mapHref = (c) => `https://yandex.ru/maps/?text=${encodeURIComponent(c.address)}`;
@@ -43,7 +43,7 @@ function App() {
   const { menu, error: menuError, reload } = useMenu('mode=delivery');
   const index = useMemo(() => indexMenu(menu), [menu]);
   const cart = useCart('dacha:cart:delivery');
-  const [layout, setLayout] = useStored('dacha:layout-site', 'list');
+  const [layout, setLayout] = useStored('dacha:layout-site2', 'big');
   const wide = useMedia('(min-width: 1000px)');
   const [open, setOpen] = useState({});
   const [dishItem, setDishItem] = useState(null);
@@ -145,7 +145,7 @@ function Header({ cfg, count: n, onCart }) {
   return html`<header class="site-header">
     <div class="gingham-strip"></div>
     <div class="container site-header-row">
-      <a class="brand" href="/dacha-cafe/" aria-label=${cfg.brand.full}>
+      <a class="brand" href="C:/Program Files/Git/dacha-cafe/" aria-label=${cfg.brand.full}>
         <${Plaque}>${cfg.brand.name}<//>
         <span class="brand-sub">для<br />друзей</span>
       </a>
@@ -166,31 +166,31 @@ function Header({ cfg, count: n, onCart }) {
 /* ───────── главная ───────── */
 
 function Hero({ cfg, menu, onMenu }) {
-  const items = useMemo(() => {
-    if (!menu) return [];
+  const photo = useMemo(() => {
+    if (!menu) return '';
     const all = menu.categories.flatMap((c) => c.items);
-    return HERO_DISHES.map((n) => all.find((i) => i.name === n)).filter((i) => i?.image);
+    return (all.find((i) => i.name === HERO_DISH && i.image) || all.find((i) => i.image))?.image || '';
   }, [menu]);
   const d = cfg.delivery;
+  const biggest = Math.max(0, ...cfg.halls.map((h) => h.seats));
+  const hrs = groupHours(cfg.hours)[0];
   return html`<section class="hero">
-    <div class="container hero-grid">
-      <div class="hero-copy">
+    <div class="hero-photo">
+      ${photo && html`<img src=${photo} alt="" referrerpolicy="no-referrer" />`}
+      <div class="container hero-copy">
         <span class=${cx('open-chip', !cfg.open.open && 'is-closed')}><span class="dot dot-live"></span>${openLabel(cfg)}</span>
-        <h1>${cfg.brand.name}<span>для друзей</span></h1>
+        <h1>${cfg.brand.name}<br />для друзей</h1>
         <p class="hero-lead">Пицца, пасты, гриль, вок и колбаски собственного производства. Приходите в парк — или закажите домой${d.enabled ? `: бесплатно от ${rub(d.freeFrom)}` : ''}.</p>
         <div class="hero-cta">
-          <button class="btn btn-lg" onClick=${onMenu}><${Icon} name="menu" size=22 />Смотреть меню</button>
-          <a class="btn btn-lg btn-ghost" href="#contacts"><${Icon} name="calendar" size=22 />Забронировать стол</a>
-        </div>
-        <div class="hero-where">
-          <a href=${mapHref(cfg.contacts)} target="_blank" rel="noopener"><${Icon} name="pin" size=18 />${cfg.contacts.address}</a>
-          <a href=${telHref(cfg.contacts.phone)}><${Icon} name="phone" size=18 />${cfg.contacts.phone}</a>
+          <button class="btn btn-lg" onClick=${onMenu}>Смотреть меню</button>
+          <a class="btn btn-lg btn-glass" href="#contacts">Забронировать стол</a>
         </div>
       </div>
-      <div class="hero-table" aria-hidden="true">
-        ${items.map((it, i) => html`<img key=${it.id} class=${'plate plate-' + (i + 1)} src=${it.image} alt="" referrerpolicy="no-referrer" />`)}
-        ${d.enabled && html`<div class="sticker"><div>доставка<br /><b>бесплатно</b>от ${rub(d.freeFrom)}</div></div>`}
-      </div>
+    </div>
+    <div class="container hero-tiles">
+      <div class="tile"><b>${hrs?.text.split('–')[1] ? 'до ' + hrs.text.split('–')[1] : 'ежедневно'}</b><span>${hrs?.days}. Полный график — в контактах</span></div>
+      <div class="tile"><b>${d.enabled ? rub(d.freeFrom) : 'по звонку'}</b><span>${d.enabled ? 'бесплатная доставка по Снежинску' : 'доставка сейчас приостановлена'}</span></div>
+      <div class="tile"><b>${biggest} мест</b><span>в большом зале, всего четыре зала</span></div>
     </div>
   </section>`;
 }
@@ -462,7 +462,7 @@ function Checkout({ open, onClose, cfg, lines, index, onChanged, onDone }) {
       </div>
 
       <div class="form-section">
-        <label class="check"><input type="checkbox" checked=${consent} aria-invalid=${invalid('consent')} onChange=${(e) => setConsent(e.currentTarget.checked)} /><span>Я согласен на обработку персональных данных для выполнения заказа. <a href="/dacha-cafe/privacy.html" target="_blank" rel="noopener">Политика конфиденциальности</a></span></label>
+        <label class="check"><input type="checkbox" checked=${consent} aria-invalid=${invalid('consent')} onChange=${(e) => setConsent(e.currentTarget.checked)} /><span>Я согласен на обработку персональных данных для выполнения заказа. <a href="C:/Program Files/Git/dacha-cafe/privacy.html" target="_blank" rel="noopener">Политика конфиденциальности</a></span></label>
         ${bad.consent && html`<span class="hint" style="color:var(--danger)">${bad.consent}</span>`}
       </div>
     </div>
@@ -681,7 +681,7 @@ function ReserveForm({ cfg }) {
       </div>
       <div class="field span-2"><label for="r-comment">Комментарий</label><textarea id="r-comment" class="textarea" maxlength="300" placeholder=${kind === 'banquet' ? 'Повод, пожелания по меню, нужен ли ведущий' : 'Например: детский стульчик, окно'} value=${f.comment} onInput=${(e) => set('comment', e.currentTarget.value)}></textarea></div>
     </div>
-    <label class="check"><input type="checkbox" checked=${consent} onChange=${(e) => setConsent(e.currentTarget.checked)} /><span>Согласен на обработку персональных данных. <a href="/dacha-cafe/privacy.html" target="_blank" rel="noopener">Политика конфиденциальности</a></span></label>
+    <label class="check"><input type="checkbox" checked=${consent} onChange=${(e) => setConsent(e.currentTarget.checked)} /><span>Согласен на обработку персональных данных. <a href="C:/Program Files/Git/dacha-cafe/privacy.html" target="_blank" rel="noopener">Политика конфиденциальности</a></span></label>
     ${error && html`<div class="notice notice-danger"><${Icon} name="warn" /><span>${error}</span></div>`}
     <button class="btn btn-lg" type="submit" disabled=${busy || !times.length}>${busy ? 'Отправляем…' : 'Отправить заявку'}</button>
   </form>`;
@@ -691,10 +691,10 @@ function Footer({ cfg }) {
   return html`<footer class="site-footer">
     <div class="container">
       <div style="display:grid;gap:14px">
-        <a class="brand" href="/dacha-cafe/"><${Plaque}>${cfg.brand.name}<//><span class="brand-sub">для<br />друзей</span></a>
+        <a class="brand" href="C:/Program Files/Git/dacha-cafe/"><${Plaque}>${cfg.brand.name}<//><span class="brand-sub">для<br />друзей</span></a>
         <p>${cfg.brand.tagline}. ${cfg.contacts.address}, ${cfg.contacts.place}.</p>
       </div>
-      <div class="footer-links"><a href="/dacha-cafe/privacy.html">Политика конфиденциальности</a>${cfg.contacts.vk && html`<a href=${cfg.contacts.vk} target="_blank" rel="noopener">ВКонтакте</a>`}<a href=${telHref(cfg.contacts.phone)}>${cfg.contacts.phone}</a></div>
+      <div class="footer-links"><a href="C:/Program Files/Git/dacha-cafe/privacy.html">Политика конфиденциальности</a>${cfg.contacts.vk && html`<a href=${cfg.contacts.vk} target="_blank" rel="noopener">ВКонтакте</a>`}<a href=${telHref(cfg.contacts.phone)}>${cfg.contacts.phone}</a></div>
     </div>
   </footer>`;
 }
