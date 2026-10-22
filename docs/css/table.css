@@ -1,0 +1,954 @@
+/* QR-меню на столе: приложение в колонке 560px, нижний док, заказ по гостям, счёт-чек, оплата. */
+
+body.table-page {
+  background: var(--surface-2);
+}
+
+.app {
+  position: relative;
+  max-width: 560px;
+  min-height: 100dvh;
+  margin: 0 auto;
+  background: var(--paper);
+  padding-bottom: calc(100px + var(--safe-b));
+  --catnav-top: 66px;
+  --cat-scroll-margin: 126px;
+}
+
+@media (min-width: 720px) {
+  .app {
+    box-shadow: 0 0 0 1px var(--line), 0 20px 60px rgba(20, 33, 61, 0.12);
+  }
+}
+
+/* ───────── шапка ───────── */
+
+.thead {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  background: color-mix(in srgb, var(--paper) 90%, transparent);
+  -webkit-backdrop-filter: blur(16px) saturate(1.4);
+  backdrop-filter: blur(16px) saturate(1.4);
+}
+
+.thead .gingham-strip {
+  height: 6px;
+  background-size: 6px 6px;
+}
+
+.thead-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: 60px;
+  padding: 0 var(--gutter);
+}
+
+.thead .plaque {
+  --h: 42px;
+}
+
+.table-meta {
+  display: grid;
+  gap: 1px;
+  line-height: 1.15;
+  min-width: 0;
+}
+
+.table-meta b {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 18px;
+  letter-spacing: -0.01em;
+}
+
+.table-meta span {
+  font-size: 13px;
+  color: var(--ink-2);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.waiter-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 44px;
+  padding: 0 18px 0 14px;
+  border-radius: 999px;
+  background: var(--accent);
+  color: var(--on-accent);
+  font-weight: 680;
+  font-size: 15px;
+  box-shadow: 0 4px 14px color-mix(in srgb, var(--accent) 38%, transparent);
+  transition: transform 0.12s var(--ease-out), background-color 0.15s;
+}
+
+.waiter-btn:hover {
+  background: var(--accent-hover);
+}
+
+.waiter-btn:active {
+  transform: scale(0.95);
+}
+
+.waiter-btn.is-called {
+  background: var(--leaf);
+  color: #fff;
+  box-shadow: 0 4px 14px color-mix(in srgb, var(--leaf) 38%, transparent);
+}
+
+.waiter-btn.is-called svg {
+  animation: ring 1.6s ease-in-out infinite;
+  transform-origin: 50% 10%;
+}
+
+@keyframes ring {
+  0%,
+  60%,
+  100% {
+    transform: rotate(0);
+  }
+  10%,
+  30% {
+    transform: rotate(14deg);
+  }
+  20%,
+  40% {
+    transform: rotate(-14deg);
+  }
+}
+
+/* ───────── приветствие ───────── */
+
+.intro {
+  padding: 14px var(--gutter) 0;
+}
+
+.intro-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--r-l);
+  background: var(--surface);
+  box-shadow: var(--shadow-1);
+}
+
+.intro-cloth {
+  position: relative;
+  height: 52px;
+  background-color: var(--surface);
+  background-image: linear-gradient(90deg, var(--gingham-c) 50%, transparent 50%), linear-gradient(var(--gingham-c) 50%, transparent 50%);
+  background-size: 18px 18px;
+}
+
+.intro-cloth::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 40%, var(--surface));
+}
+
+.intro-body {
+  position: relative;
+  margin-top: -22px;
+  padding: 0 20px 16px;
+  display: grid;
+  gap: 8px;
+}
+
+.intro-body h1 {
+  font-size: 26px;
+  font-weight: 800;
+}
+
+.intro-body p {
+  color: var(--ink-2);
+  font-size: 14.5px;
+}
+
+.intro-steps {
+  display: grid;
+  gap: 6px;
+  margin: 2px 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: 14px;
+  line-height: 1.3;
+}
+
+.intro-steps li {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.intro-steps svg {
+  flex: none;
+  color: var(--primary);
+}
+
+.intro-close {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--surface) 80%, transparent);
+  color: var(--ink-2);
+}
+
+/* ───────── панель гостей ───────── */
+
+.guestbar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px var(--gutter) 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.guestbar::-webkit-scrollbar {
+  display: none;
+}
+
+.guestbar-label {
+  flex: none;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink-2);
+  margin-right: 2px;
+}
+
+.guestchip {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 42px;
+  padding: 0 14px 0 5px;
+  border-radius: 999px;
+  background: var(--surface);
+  box-shadow: inset 0 0 0 1.5px var(--line);
+  font-weight: 620;
+  font-size: 15px;
+  white-space: nowrap;
+  transition: box-shadow 0.18s, background-color 0.18s, transform 0.12s var(--ease-out);
+}
+
+.guestchip:active {
+  transform: scale(0.96);
+}
+
+.guestchip .avatar {
+  --s: 32px;
+}
+
+.guestchip[aria-pressed='true'] {
+  background: var(--surface);
+  box-shadow: inset 0 0 0 2.5px var(--primary), 0 3px 10px color-mix(in srgb, var(--primary) 22%, transparent);
+}
+
+.guestchip.add {
+  padding: 0 14px 0 12px;
+  gap: 6px;
+  color: var(--primary);
+  box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--primary) 45%, transparent);
+  background: transparent;
+}
+
+.guestchip .you {
+  font-weight: 500;
+  font-size: 12.5px;
+  color: var(--ink-3);
+}
+
+/* ───────── плавающая кнопка «Заказ» ───────── */
+
+.fab-order {
+  position: fixed;
+  left: 50%;
+  bottom: calc(78px + var(--safe-b));
+  z-index: 35;
+  width: min(calc(100% - 28px), 532px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  height: 52px;
+  padding: 0 20px 0 12px;
+  border-radius: 18px;
+  background: var(--accent);
+  color: var(--on-accent);
+  font-weight: 700;
+  font-size: 16.5px;
+  box-shadow: 0 10px 28px color-mix(in srgb, var(--accent) 45%, transparent), 0 2px 6px rgba(20, 33, 61, 0.2);
+  transform: translateX(-50%);
+  animation: fab-in 0.4s var(--ease-spring) both;
+}
+
+.fab-order:active {
+  transform: translateX(-50%) scale(0.98);
+}
+
+.fab-order .left {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.fab-order .count {
+  display: inline-grid;
+  place-items: center;
+  min-width: 28px;
+  height: 28px;
+  padding: 0 8px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.24);
+  font-size: 15px;
+}
+
+@keyframes fab-in {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 24px) scale(0.94);
+  }
+}
+
+/* ───────── нижний док ───────── */
+
+.dock {
+  position: fixed;
+  left: 50%;
+  bottom: 0;
+  z-index: 40;
+  width: min(100%, 560px);
+  transform: translateX(-50%);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px;
+  padding: 6px 10px calc(6px + var(--safe-b));
+  background: color-mix(in srgb, var(--surface) 92%, transparent);
+  -webkit-backdrop-filter: blur(18px) saturate(1.5);
+  backdrop-filter: blur(18px) saturate(1.5);
+  border-top: 1px solid var(--line);
+}
+
+.dock button {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: 3px;
+  padding: 8px 4px 7px;
+  border-radius: 18px;
+  font-size: 12.5px;
+  font-weight: 650;
+  color: var(--ink-3);
+  transition: background-color 0.2s, color 0.2s, transform 0.12s var(--ease-out);
+}
+
+.dock button:active {
+  transform: scale(0.95);
+}
+
+.dock button[aria-current='page'] {
+  background: var(--primary-soft);
+  color: var(--on-soft);
+}
+
+.dock .mark {
+  position: absolute;
+  top: 2px;
+  left: calc(50% + 6px);
+  min-width: 20px;
+  height: 20px;
+  padding: 0 5px;
+  display: grid;
+  place-items: center;
+  border-radius: 10px;
+  background: var(--accent);
+  color: var(--on-accent);
+  font-size: 12px;
+  font-weight: 750;
+  border: 2px solid var(--surface);
+  box-sizing: content-box;
+}
+
+.dock .mark.dot {
+  min-width: 10px;
+  width: 10px;
+  height: 10px;
+  padding: 0;
+  top: 5px;
+  background: var(--leaf);
+}
+
+/* ───────── вкладки «Заказ» и «Счёт» ───────── */
+
+.tab {
+  padding: 22px var(--gutter) 24px;
+  display: grid;
+  gap: 18px;
+}
+
+.tab > header h1 {
+  font-size: 34px;
+  font-weight: 800;
+}
+
+.tab > header p {
+  margin-top: 4px;
+  color: var(--ink-2);
+  font-size: 15px;
+}
+
+.og {
+  display: grid;
+}
+
+.og-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: 6px;
+  border-bottom: 2px solid var(--ink);
+}
+
+.og-head b {
+  font-family: var(--font-display);
+  font-size: 19px;
+  font-weight: 800;
+}
+
+.og-head .you {
+  font-size: 13px;
+  color: var(--ink-3);
+}
+
+.og-head .sum {
+  margin-left: auto;
+  font-weight: 750;
+  font-size: 17px;
+  font-variant-numeric: tabular-nums;
+}
+
+.oline {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 8px 14px;
+  align-items: center;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.oline.is-bad {
+  background: var(--danger-soft);
+  margin: 0 calc(var(--gutter) * -1);
+  padding-left: var(--gutter);
+  padding-right: var(--gutter);
+}
+
+.oline-name {
+  font-weight: 650;
+  font-size: 16px;
+  line-height: 1.25;
+}
+
+.oline-sub {
+  margin-top: 2px;
+  font-size: 13.5px;
+  color: var(--ink-2);
+}
+
+.oline-price {
+  grid-column: 2;
+  grid-row: 1;
+  justify-self: end;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.oline-ctl {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.whochip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 34px;
+  padding: 0 10px 0 4px;
+  border-radius: 999px;
+  background: var(--surface-2);
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--ink-2);
+}
+
+.whochip .avatar {
+  --s: 26px;
+}
+
+.whochip svg {
+  opacity: 0.6;
+}
+
+.order-note {
+  display: grid;
+  gap: 8px;
+}
+
+.order-total {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding: 4px 0;
+}
+
+.order-total span {
+  color: var(--ink-2);
+}
+
+.order-total b {
+  font-family: var(--font-display);
+  font-size: 30px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+.send-bar {
+  position: sticky;
+  bottom: calc(76px + var(--safe-b));
+  z-index: 25;
+  display: grid;
+  gap: 10px;
+  padding: 14px 0 6px;
+  background: linear-gradient(180deg, transparent, var(--paper) 22%);
+}
+
+/* ───────── счёт-чек ───────── */
+
+.check-card {
+  position: relative;
+  padding: 22px 20px 26px;
+  background: var(--surface);
+  box-shadow: var(--shadow-1);
+  border-radius: 6px 6px 0 0;
+  --zig: 10px;
+  -webkit-mask: conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) 50% / calc(var(--zig) * 2) 100%;
+  mask: conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) 50% / calc(var(--zig) * 2) 100%;
+  padding-bottom: calc(26px + var(--zig));
+  filter: drop-shadow(0 2px 6px rgba(20, 33, 61, 0.1));
+}
+
+.check-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+  padding-bottom: 12px;
+  border-bottom: 2px dashed var(--line-strong);
+}
+
+.check-head h2 {
+  font-size: 22px;
+}
+
+.check-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 0;
+}
+
+.check-row + .check-row {
+  border-top: 1px dashed var(--line);
+}
+
+.check-row .who {
+  flex: 1;
+  min-width: 0;
+  display: grid;
+  line-height: 1.25;
+}
+
+.check-row .who b {
+  font-weight: 650;
+}
+
+.check-row .who small {
+  color: var(--ink-3);
+  font-size: 13px;
+}
+
+.check-row .amount {
+  font-weight: 750;
+  font-size: 18px;
+  font-variant-numeric: tabular-nums;
+}
+
+.check-row .paid {
+  color: var(--leaf);
+}
+
+.check-total {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-top: 8px;
+  padding-top: 14px;
+  border-top: 2px dashed var(--line-strong);
+}
+
+.check-total span {
+  font-weight: 650;
+  color: var(--ink-2);
+}
+
+.check-total b {
+  font-family: var(--font-display);
+  font-size: 32px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ───────── отправленные заказы ───────── */
+
+.sent-list {
+  display: grid;
+  gap: 12px;
+}
+
+.sent {
+  padding: 16px;
+  border-radius: var(--r-m);
+  background: var(--surface);
+  box-shadow: inset 0 0 0 1.5px var(--line);
+  display: grid;
+  gap: 10px;
+}
+
+.sent-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sent-head b {
+  font-family: var(--font-display);
+  font-size: 17px;
+}
+
+.sent-head time {
+  color: var(--ink-3);
+  font-size: 13.5px;
+}
+
+.sent-head .badge {
+  margin-left: auto;
+}
+
+.sent-lines {
+  display: grid;
+  gap: 4px;
+  font-size: 14.5px;
+}
+
+.sent-lines .g {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 6px;
+  font-weight: 650;
+  font-size: 13.5px;
+  color: var(--ink-2);
+}
+
+.sent-lines .g .avatar {
+  --s: 20px;
+}
+
+.sent-lines .l {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.sent-lines .l span:last-child {
+  color: var(--ink-2);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.pay-state {
+  display: grid;
+  gap: 8px;
+  padding: 16px;
+  border-radius: var(--r-m);
+  background: var(--leaf-soft);
+  color: var(--ink);
+}
+
+.pay-state .row {
+  gap: 10px;
+  color: var(--leaf);
+  font-weight: 700;
+}
+
+.pay-state p {
+  font-size: 14.5px;
+  color: var(--ink-2);
+}
+
+/* ───────── листы: приветствие, гости, официант, оплата ───────── */
+
+.welcome {
+  display: grid;
+  gap: 16px;
+  padding-top: 4px;
+}
+
+.welcome .plaque {
+  justify-self: start;
+}
+
+.welcome p {
+  color: var(--ink-2);
+}
+
+.claim {
+  display: grid;
+  gap: 10px;
+}
+
+.claim .who-grid .chip {
+  padding-left: 6px;
+}
+
+.call-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.call-tile {
+  display: grid;
+  gap: 8px;
+  justify-items: start;
+  align-content: start;
+  min-height: 92px;
+  padding: 14px;
+  border-radius: var(--r-m);
+  background: var(--surface-2);
+  text-align: left;
+  font-weight: 650;
+  line-height: 1.2;
+  transition: background-color 0.15s, transform 0.12s var(--ease-out);
+}
+
+.call-tile:hover {
+  background: var(--primary-soft);
+}
+
+.call-tile:active {
+  transform: scale(0.97);
+}
+
+.call-tile svg {
+  color: var(--primary);
+}
+
+.call-tile:first-child,
+.call-tile.primary {
+  grid-column: 1 / -1;
+  min-height: 72px;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  background: var(--accent-soft);
+}
+
+.call-tile.primary svg {
+  color: var(--accent);
+}
+
+/* нечётное число маленьких плиток: последняя занимает всю строку */
+.call-tile:last-child:nth-child(even) {
+  grid-column: 1 / -1;
+  min-height: 64px;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+}
+
+.call-done {
+  display: grid;
+  justify-items: center;
+  gap: 12px;
+  padding: 18px 8px 8px;
+  text-align: center;
+}
+
+.call-done p {
+  color: var(--ink-2);
+}
+
+.pay-section {
+  display: grid;
+  gap: 10px;
+  margin-top: 22px;
+}
+
+.pay-section:first-child {
+  margin-top: 4px;
+}
+
+.pay-section > h3 {
+  font-family: var(--font-text);
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+.pay-methods {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(96px, 1fr));
+  gap: 10px;
+}
+
+.pay-method {
+  display: grid;
+  justify-items: center;
+  gap: 8px;
+  padding: 16px 8px 14px;
+  border-radius: var(--r-m);
+  background: var(--surface);
+  box-shadow: inset 0 0 0 1.5px var(--line-strong);
+  font-weight: 650;
+  font-size: 14.5px;
+  text-align: center;
+  transition: box-shadow 0.15s, background-color 0.15s, transform 0.12s var(--ease-out);
+}
+
+.pay-method:active {
+  transform: scale(0.96);
+}
+
+.pay-method svg {
+  color: var(--primary);
+}
+
+.pay-method[aria-checked='true'] {
+  background: var(--primary-soft);
+  box-shadow: inset 0 0 0 2.5px var(--primary);
+}
+
+.pay-guests {
+  display: grid;
+  gap: 8px;
+}
+
+.pay-guest {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px 10px 10px;
+  border-radius: var(--r-s);
+  background: var(--surface-2);
+  text-align: left;
+  width: 100%;
+}
+
+.pay-guest[aria-checked='true'] {
+  box-shadow: inset 0 0 0 2px var(--primary);
+  background: var(--primary-soft);
+}
+
+.pay-guest .grow {
+  flex: 1;
+  min-width: 0;
+  font-weight: 650;
+}
+
+.pay-guest b {
+  font-variant-numeric: tabular-nums;
+}
+
+.pay-guest .tick {
+  width: 24px;
+  height: 24px;
+  border-radius: 8px;
+  border: 1.5px solid var(--line-strong);
+  display: grid;
+  place-items: center;
+  color: transparent;
+  flex: none;
+}
+
+.pay-guest[aria-checked='true'] .tick {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: var(--on-primary);
+}
+
+.tip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.pay-sum {
+  display: grid;
+  gap: 4px;
+  font-size: 14.5px;
+  color: var(--ink-2);
+}
+
+.pay-sum div {
+  display: flex;
+  justify-content: space-between;
+}
+
+.pay-sum .big {
+  margin-top: 6px;
+  padding-top: 10px;
+  border-top: 1px dashed var(--line-strong);
+  color: var(--ink);
+  font-weight: 750;
+  font-size: 18px;
+}
+
+/* ───────── экран ошибки ───────── */
+
+.fatal {
+  min-height: 100dvh;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 14px;
+  padding: 32px;
+  text-align: center;
+}
+
+.fatal h1 {
+  font-size: 30px;
+}
+
+.fatal p {
+  color: var(--ink-2);
+  max-width: 34ch;
+}
+
+.skeleton-page {
+  display: grid;
+  gap: 14px;
+  padding: 24px var(--gutter);
+}

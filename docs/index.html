@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta name="dacha-demo" content="1" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Кафе «Дача для друзей» в Снежинске — меню и доставка</title>
+    <meta name="description" content="Кафе «Дача для друзей» в парке Снежинска: пицца, пасты, гриль, вок, детское меню, банкеты. Заказывайте доставку онлайн — бесплатно от 1000 ₽." />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="ru_RU" />
+    <meta property="og:title" content="Кафе «Дача для друзей» — Снежинск" />
+    <meta property="og:description" content="Меню, доставка и бронь столика. Для всех, кто любит вкусно поесть." />
+    <meta name="theme-color" content="#f4f6f1" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0d1630" media="(prefers-color-scheme: dark)" />
+    <link rel="icon" href="/dacha-cafe/img/favicon.svg" type="image/svg+xml" />
+    <link rel="preload" href="/dacha-cafe/fonts/podkova-cyrillic-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/dacha-cafe/fonts/onest-cyrillic-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="/dacha-cafe/css/tokens.css" />
+    <link rel="stylesheet" href="/dacha-cafe/css/base.css" />
+    <link rel="stylesheet" href="/dacha-cafe/css/ui.css" />
+    <link rel="stylesheet" href="/dacha-cafe/css/menu.css" />
+    <link rel="stylesheet" href="/dacha-cafe/css/site.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Restaurant",
+        "name": "Кафе «Дача для друзей»",
+        "servesCuisine": ["Пицца", "Паста", "Гриль", "Вок"],
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Снежинск",
+          "streetAddress": "ул. Комсомольская, 3А",
+          "addressCountry": "RU"
+        },
+        "telephone": "+7 35146 4-99-21",
+        "openingHoursSpecification": [
+          { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday"], "opens": "11:00", "closes": "23:00" },
+          { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Friday", "Saturday"], "opens": "11:00", "closes": "03:00" }
+        ]
+      }
+    </script>
+  </head>
+  <body>
+    <div style="background:#14213d;color:#fff;text-align:center;font:600 13px/1.3 system-ui,sans-serif;padding:7px 12px">Демо-версия: заказы, вызовы и оплата имитируются и никуда не отправляются</div>
+    <div id="app"></div>
+    <noscript>
+      <p style="padding: 24px; font-size: 18px">
+        Кафе «Дача для друзей», Снежинск, ул. Комсомольская, 3А (парк культуры и отдыха).<br />
+        Телефон: <a href="tel:+73514649921">+7 (35146) 4-99-21</a>. Для меню и заказа нужен JavaScript.
+      </p>
+    </noscript>
+    <script type="module" src="/dacha-cafe/js/site.js"></script>
+  </body>
+</html>

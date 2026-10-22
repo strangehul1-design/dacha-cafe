@@ -1,0 +1,20 @@
+{
+  "name": "dacha-cafe",
+  "version": "1.0.0",
+  "description": "Сайт кафе «Дача для друзей» (Снежинск): меню, доставка, QR-меню для столов, заказы в Telegram и админ-панель",
+  "private": true,
+  "type": "module",
+  "main": "server.js",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "test": "node --test \"test/*.test.js\"",
+    "reset-password": "node scripts/reset-password.js"
+  },
+  "dependencies": {
+    "qrcode": "^1.5.4"
+  }
+}
