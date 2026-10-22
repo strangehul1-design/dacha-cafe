@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8" />
+<title>Концепты дизайна — Дача для друзей</title>
+<style>
+@font-face{font-family:'Onest';font-weight:100 900;src:url('../public/fonts/onest-cyrillic-wght-normal.woff2') format('woff2');unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:'Onest';font-weight:100 900;src:url('../public/fonts/onest-latin-ext-wght-normal.woff2') format('woff2');unicode-range:U+0100-02BA,U+20A0-20AB,U+20AD-20C0}
+@font-face{font-family:'Onest';font-weight:100 900;src:url('../public/fonts/onest-latin-wght-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+2000-206F,U+20AC,U+2212}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1800px;height:1200px;overflow:hidden}
+body{font-family:'Onest',system-ui,sans-serif;-webkit-font-smoothing:antialiased;letter-spacing:-.011em}
+.A{--bg:#f5f5f7;--card:#fff;--ink:#1d1d1f;--mute:#6e6e73;--line:rgba(0,0,0,.08);--acc:#1d1d1f;--onacc:#fff;--hot:#e8452c;--r:26px;--chip:#e8e8ed;--shadow:0 20px 50px rgba(0,0,0,.12)}
+.B{--bg:#eef2e9;--card:#fff;--ink:#1c2a20;--mute:#66736a;--line:rgba(28,42,32,.09);--acc:#2c7a4b;--onacc:#fff;--hot:#e8452c;--r:34px;--chip:#dde6d6;--shadow:0 24px 60px rgba(32,64,40,.16)}
+.C{--bg:#000;--card:#1c1c1e;--ink:#f5f5f7;--mute:#98989f;--line:rgba(255,255,255,.1);--acc:#ff7a3d;--onacc:#1a0b02;--hot:#ff7a3d;--r:30px;--chip:#2c2c2e;--shadow:0 30px 70px rgba(0,0,0,.6)}
+.stage{position:relative;width:1800px;height:1200px;background:var(--bg);color:var(--ink);overflow:hidden}
+.C .stage{background:radial-gradient(1200px 700px at 30% -10%,#1f2a1f 0%,#000 60%)}
+.tag{position:absolute;left:60px;top:44px;font-weight:700;font-size:20px;display:flex;gap:14px;align-items:center;z-index:5}
+.tag b{background:var(--ink);color:var(--bg);padding:7px 16px;border-radius:99px;font-size:17px}
+.tag span{color:var(--mute);font-weight:500}
+img{display:block;object-fit:cover}
+/* gingham */
+.gh{background-image:linear-gradient(90deg,rgba(232,69,44,.55) 50%,transparent 50%),linear-gradient(rgba(232,69,44,.55) 50%,transparent 50%);background-size:8px 8px}
+/* browser */
+.browser{position:absolute;left:60px;top:110px;width:1000px;height:1040px;background:var(--card);border-radius:22px;box-shadow:var(--shadow);overflow:hidden;border:1px solid var(--line)}
+.bar{height:46px;display:flex;align-items:center;gap:8px;padding:0 18px;background:var(--chip);}
+.bar i{width:12px;height:12px;border-radius:50%;background:#ff5f57}.bar i:nth-child(2){background:#febc2e}.bar i:nth-child(3){background:#28c840}
+.bar u{margin:0 auto;text-decoration:none;font-size:14px;color:var(--mute);background:var(--bg);padding:6px 80px;border-radius:9px}
+.nav{display:flex;align-items:center;height:62px;padding:0 36px;gap:26px;font-size:15px;font-weight:500;border-bottom:1px solid var(--line)}
+.C .nav{background:rgba(28,28,30,.7)}
+.logo{font-weight:800;font-size:20px;letter-spacing:-.03em;display:flex;align-items:center;gap:9px}
+.logo em{font-style:normal;width:26px;height:26px;border-radius:8px;background:var(--acc);color:var(--onacc);display:grid;place-items:center;font-size:15px}
+.nav .sp{flex:1}.nav a{color:var(--mute)}
+.btn{display:inline-flex;align-items:center;gap:8px;height:46px;padding:0 24px;border-radius:99px;background:var(--acc);color:var(--onacc);font-weight:600;font-size:16px}
+.btn.ghost{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--line)}
+.btn.sm{height:38px;padding:0 18px;font-size:14px}
+/* hero A */
+.A .hero{padding:54px 40px 0;text-align:center}
+.A .hero small{color:var(--hot);font-weight:600;font-size:16px}
+.A .hero h1{font-size:92px;line-height:.98;letter-spacing:-.045em;font-weight:700;margin:10px 0 16px}
+.A .hero p{font-size:22px;color:var(--mute);max-width:640px;margin:0 auto 26px;line-height:1.35}
+.A .strip{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:16px;padding:36px 36px 0}
+.A .strip img{width:100%;height:330px;border-radius:var(--r)}
+.A .gb{height:8px;margin:26px 36px 0;border-radius:4px}
+/* hero B bento */
+.B .bento{display:grid;grid-template-columns:1.5fr 1fr;grid-template-rows:330px 220px;gap:16px;padding:26px 30px 0}
+.B .tile{border-radius:var(--r);overflow:hidden;position:relative;background:var(--card);box-shadow:0 0 0 1px var(--line)}
+.B .tile.big{grid-row:1/3;background:var(--acc);color:#fff;padding:44px;display:flex;flex-direction:column;justify-content:flex-end}
+.B .tile.big h1{font-size:78px;line-height:.98;letter-spacing:-.04em;font-weight:700}
+.B .tile.big p{font-size:19px;opacity:.9;margin:14px 0 22px;max-width:430px;line-height:1.35}
+.B .tile.big .btn{background:#fff;color:var(--acc);align-self:flex-start}
+.B .tile.big .leaf{position:absolute;right:-40px;top:-30px;width:300px;opacity:.16}
+.B .tile img{width:100%;height:100%}
+.B .tile .cap{position:absolute;left:18px;bottom:16px;background:rgba(255,255,255,.86);backdrop-filter:blur(10px);padding:8px 14px;border-radius:99px;font-weight:600;font-size:14px;color:#1c2a20}
+.B .tile.info{padding:26px;display:flex;flex-direction:column;justify-content:space-between}
+.B .tile.info b{font-size:50px;letter-spacing:-.04em;line-height:1}
+.B .tile.info span{color:var(--mute);font-size:16px}
+.B .tile.info .gh{position:absolute;left:0;right:0;bottom:0;height:10px;opacity:.7}
+/* hero C */
+.C .full{position:relative;height:560px;margin:0}
+.C .full img{width:100%;height:100%}
+.C .full:after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.82) 8%,rgba(0,0,0,.1) 70%),linear-gradient(0deg,#1c1c1e 0,transparent 30%)}
+.C .full .t{position:absolute;left:44px;bottom:70px;z-index:2;max-width:520px}
+.C .full h1{font-size:88px;line-height:.96;letter-spacing:-.045em;font-weight:700}
+.C .full p{font-size:20px;color:#d0d0d5;margin:14px 0 24px;line-height:1.35}
+.C .row3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;padding:18px 30px}
+.C .row3 .c{background:#2c2c2e;border-radius:24px;padding:22px}
+.C .row3 b{font-size:34px;letter-spacing:-.03em;display:block;color:var(--acc)}
+.C .row3 span{color:var(--mute);font-size:15px}
+/* menu row on desktop */
+.cats{display:flex;gap:10px;padding:22px 36px 6px;font-weight:600;font-size:15px}
+.cats span{padding:9px 18px;border-radius:99px;background:var(--chip)}
+.cats span.on{background:var(--acc);color:var(--onacc)}
+.dl{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;padding:12px 36px}
+.d{background:var(--bg);border-radius:20px;overflow:hidden}
+.C .d{background:#2c2c2e}
+.d img{width:100%;height:120px}
+.d div{padding:12px 14px 14px;font-size:15px;font-weight:600}
+.d small{display:block;color:var(--mute);font-weight:500;margin-top:2px}
+/* phones */
+.phone{position:absolute;width:350px;height:720px;border-radius:56px;background:#111;padding:11px;box-shadow:var(--shadow),0 0 0 2px #333 inset}
+.screen{position:relative;width:100%;height:100%;border-radius:46px;overflow:hidden;background:var(--bg);color:var(--ink)}
+.C .screen{background:#000}
+.p1{left:1110px;top:150px;transform:rotate(-2deg)}
+.p2{left:1450px;top:250px;transform:rotate(2deg)}
+.sb{height:46px;display:flex;justify-content:space-between;align-items:flex-end;padding:0 26px 4px;font-weight:700;font-size:14px}
+.ph-head{display:flex;align-items:center;gap:10px;padding:8px 18px}
+.pq{width:38px;height:38px;border-radius:11px;background:#1c3f94;color:#fff;font-weight:800;display:grid;place-items:center;font-size:19px;box-shadow:inset 0 0 0 2px #1c3f94,inset 0 0 0 3.5px rgba(255,255,255,.9)}
+.A .pq,.C .pq{background:var(--ink);color:var(--bg);box-shadow:none}
+.B .pq{background:var(--acc);box-shadow:inset 0 0 0 2px var(--acc),inset 0 0 0 3.5px rgba(255,255,255,.9)}
+.ph-head b{font-size:16px;display:block;line-height:1.1}.ph-head small{color:var(--mute);font-size:12px}
+.call{margin-left:auto;height:36px;padding:0 14px;border-radius:99px;background:var(--chip);font-weight:600;font-size:13px;display:flex;align-items:center;gap:6px}
+.pc{display:flex;gap:8px;padding:6px 18px 10px;font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden}
+.pc span{padding:8px 14px;border-radius:99px;background:var(--chip)}.pc span.on{background:var(--acc);color:var(--onacc)}
+.who{display:flex;gap:8px;padding:2px 18px 8px;font-size:12.5px;font-weight:600;align-items:center}
+.who i{font-style:normal;display:flex;align-items:center;gap:6px;padding:4px 12px 4px 4px;border-radius:99px;background:var(--card);box-shadow:0 0 0 1px var(--line)}
+.who i s{width:24px;height:24px;border-radius:50%;display:grid;place-items:center;color:#fff;font-size:12px;text-decoration:none}
+.who i.on{box-shadow:0 0 0 2px var(--ink)}
+h5{font-size:26px;letter-spacing:-.03em;padding:6px 18px 4px;font-weight:700}
+/* A list rows */
+.row{display:flex;gap:12px;padding:12px 18px;border-bottom:1px solid var(--line)}
+.row .tx{flex:1;font-size:13px;color:var(--mute);line-height:1.3}
+.row .tx b{display:block;color:var(--ink);font-size:16px;margin-bottom:3px;letter-spacing:-.02em}
+.row .tx p{font-size:15px;color:var(--ink);font-weight:700;margin-top:6px}
+.row .im{position:relative;width:88px;height:88px}
+.row .im img{width:88px;height:88px;border-radius:18px}
+.row .plus{position:absolute;right:-6px;bottom:-8px;width:34px;height:34px;border-radius:50%;background:var(--acc);color:var(--onacc);display:grid;place-items:center;font-size:22px;font-weight:500;border:3px solid var(--bg)}
+.glass{position:absolute;left:14px;right:14px;bottom:14px;height:56px;border-radius:22px;background:rgba(255,255,255,.78);backdrop-filter:blur(20px);box-shadow:0 8px 30px rgba(0,0,0,.18);display:flex;align-items:center;justify-content:space-between;padding:0 20px;font-weight:700;font-size:15px}
+.C .glass{background:rgba(44,44,46,.82)}
+.glass i{font-style:normal;background:var(--acc);color:var(--onacc);width:26px;height:26px;border-radius:50%;display:inline-grid;place-items:center;font-size:13px;margin-right:10px}
+/* B grid */
+.gridm{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:6px 16px}
+.gc{background:var(--card);border-radius:24px;overflow:hidden;box-shadow:0 0 0 1px var(--line)}
+.gc img{width:100%;height:126px}.gc div{padding:10px 12px 12px;font-size:13px;font-weight:600;position:relative}
+.gc div p{color:var(--acc);font-weight:800;font-size:15px;margin-top:4px}
+.gc .plus{position:absolute;right:10px;bottom:10px;width:30px;height:30px;border-radius:50%;background:var(--acc);color:#fff;display:grid;place-items:center;font-size:20px}
+/* C big cards */
+.bigc{margin:0 16px 12px;height:210px;border-radius:30px;overflow:hidden;position:relative}
+.bigc img{width:100%;height:100%}.bigc:after{content:'';position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,.85),transparent 60%)}
+.bigc .t{position:absolute;left:18px;right:18px;bottom:14px;z-index:2;display:flex;justify-content:space-between;align-items:flex-end}
+.bigc b{font-size:22px;letter-spacing:-.03em;display:block}.bigc small{color:#c8c8ce;font-size:12px}
+.bigc .pr{font-weight:800;font-size:19px}
+.bigc .plus{width:38px;height:38px;border-radius:50%;background:var(--acc);color:#1a0b02;display:grid;place-items:center;font-size:24px;font-weight:600}
+/* bill */
+.card{margin:0 16px 12px;background:var(--card);border-radius:26px;padding:6px 18px;box-shadow:0 0 0 1px var(--line)}
+.g{display:flex;align-items:center;gap:12px;padding:13px 0;border-bottom:1px solid var(--line);font-size:15px;font-weight:600}
+.g:last-child{border:0}.g .a{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;color:#fff;font-weight:700}
+.g small{display:block;color:var(--mute);font-weight:500;font-size:12px}.g em{margin-left:auto;font-style:normal;font-weight:800;font-size:17px}
+.tot{display:flex;justify-content:space-between;align-items:baseline;padding:12px 4px 4px;font-weight:600}.tot b{font-size:34px;letter-spacing:-.04em}
+.seg{margin:0 16px 12px;display:flex;background:var(--chip);border-radius:16px;padding:4px;font-size:13.5px;font-weight:600;text-align:center}
+.seg span{flex:1;padding:10px 0;border-radius:12px}.seg span.on{background:var(--card);box-shadow:0 2px 8px rgba(0,0,0,.12)}
+.cta{margin:8px 16px;height:56px;border-radius:99px;background:var(--acc);color:var(--onacc);display:grid;place-items:center;font-weight:700;font-size:17px}
+.fine{text-align:center;color:var(--mute);font-size:12.5px;padding:2px 20px}
+.ghs{height:6px;margin:0 16px 10px;border-radius:3px;opacity:.75}
+</style>
+</head>
+<body>
+<script>
+const v=(new URLSearchParams(location.search).get('v')||'a').toUpperCase();document.body.className=v;
+const T={
+ A:{n:'A',t:'«Свет»',d:'Белый, воздушный, как Apple Store. Крупные фото, чёрные кнопки-капсулы, клетка только тонкой полоской.'},
+ B:{n:'B',t:'«Сад»',d:'Мягкий зелёный и «бенто»-карточки. Самый тёплый и дачный по ощущению, при этом чисто и просто.'},
+ C:{n:'C',t:'«Вечер»',d:'Тёмный, кинематографичный, фото на весь экран. Как Apple TV: эффектно, особенно вечером в зале.'}
+}[v];
+const I={
+ pizza:'https://static.tildacdn.com/tild3533-6663-4763-a664-616537336239/okhotnichya-001.jpg',
+ wok:'https://static.tildacdn.com/tild3065-6666-4465-a664-613039643838/fae2836966789edc0dd0.jpg',
+ burger:'https://static.tildacdn.com/tild3534-3831-4063-b238-366665363231/zakazat_burger_adski.jpg',
+ cake:'https://static.tildacdn.com/tild3939-3861-4438-b062-336133366663/molten-chocolate-lav.jpg',
+ greek:'https://static.tildacdn.com/tild3361-3632-4466-a362-633834623961/1579437905_snimok-je.jpg',
+ pasta:'https://static.tildacdn.com/tild3637-6235-4135-b962-343035656433/Spagetti_s_moreprodu.jpg',
+ grill:'https://static.tildacdn.com/tild3438-3562-4763-b334-376463303631/246957973-405722-sve.jpg',
+ hawaii:'https://static.tildacdn.com/tild3835-3237-4138-a138-393230623162/1327451_158762496094.jpg'};
+const leaf='<svg class="leaf" viewBox="0 0 24 24" fill="#fff"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/></svg>';
+const nav=`<div class="nav"><div class="logo"><em>Д</em>Дача</div><a>Меню</a><a>Доставка</a><a>Залы</a><a>Контакты</a><span class="sp"></span><span class="btn sm">Корзина · 2</span></div>`;
+let hero='',menuRow='';
+const cats=`<div class="cats"><span class="on">Пиццы</span><span>Пасты</span><span>Гриль</span><span>Вок</span><span>Салаты</span><span>Десерты</span></div>`;
+const dl=`<div class="dl">${[['pizza','Охотничья','35 см · 750 ₽'],['hawaii','Гавайская','35 см · 700 ₽'],['burger','Шеф-бургер','400 г · 630 ₽'],['wok','Говядина wok','300 г · 540 ₽']].map(([k,n,s])=>`<div class="d"><img src="${I[k]}"><div>${n}<small>${s}</small></div></div>`).join('')}</div>`;
+if(v==='A') hero=`<div class="hero"><small>Снежинск · парк культуры и отдыха</small><h1>Дача<br>для друзей.</h1><p>Пицца, паста, гриль и вок. Приходите в парк или закажите домой — бесплатно от 1 000 ₽.</p><span class="btn">Смотреть меню</span> &nbsp; <span class="btn ghost">Забронировать</span></div><div class="strip"><img src="${I.pizza}"><img src="${I.wok}"><img src="${I.cake}"></div><div class="gh gb"></div>`;
+if(v==='B') hero=`<div class="bento"><div class="tile big">${leaf}<h1>Дача<br>для друзей</h1><p>Вкусная еда в парке Снежинска. Для тихих встреч, праздников и доставки домой.</p><span class="btn">Смотреть меню</span></div><div class="tile"><img src="${I.pizza}"><span class="cap">Пицца из меню</span></div><div class="tile info"><span>Доставка по Снежинску</span><b>бесплатно<br>от 1 000 ₽</b><div class="gh"></div></div></div>`;
+if(v==='C') hero=`<div class="full"><img src="${I.grill}"><div class="t"><h1>Дача<br>для друзей</h1><p>Гриль, паста и пицца. Вечер в парке — с лучшей компанией.</p><span class="btn">Смотреть меню</span></div></div><div class="row3"><div class="c"><b>до 23:00</b><span>открыто сегодня</span></div><div class="c"><b>1 000 ₽</b><span>бесплатная доставка</span></div><div class="c"><b>85 мест</b><span>большой зал</span></div></div>`;
+const guests=(c)=>`<div class="who"><i class="on"><s style="background:#e8452c">А</s>Аня</i><i><s style="background:#1e3f96">П</s>Пётр</i><i>+ Гость</i></div>`;
+const head=`<div class="ph-head"><div class="pq">7</div><div><b>Стол 7</b><small>Средний зал</small></div><span class="call">🔔 Официант</span></div>`;
+let m='';
+if(v==='A') m=`${head}<div class="ph-head" style="padding-top:2px"><div style="flex:1;height:38px;border-radius:12px;background:var(--chip);color:var(--mute);font-size:14px;display:flex;align-items:center;padding:0 14px">Найти блюдо</div></div><div class="pc"><span class="on">Пиццы</span><span>Пасты</span><span>Гриль</span><span>Вок</span></div>${guests()}<div class="gh ghs"></div><h5>Пиццы</h5>
+${[['pizza','Охотничья','Красный соус, колбаски, ветчина, лук, моцарелла','750'],['hawaii','Гавайская','Сливочный соус, курица, ананас, моцарелла','700'],['burger','Шеф-бургер','Говядина, бекон, огурец, красный лук','630']].map(([k,n,d,p])=>`<div class="row"><div class="tx"><b>${n}</b>${d}<p>${p} ₽</p></div><div class="im"><img src="${I[k]}"><span class="plus">+</span></div></div>`).join('')}
+<div class="glass"><span><i>2</i>Мой заказ</span><span>1 450 ₽</span></div>`;
+if(v==='B') m=`${head}<div class="pc"><span class="on">Пиццы</span><span>Пасты</span><span>Гриль</span><span>Вок</span></div>${guests()}<h5>Пиццы</h5><div class="gridm">${[['pizza','Охотничья','750'],['hawaii','Гавайская','700'],['pasta','Паста с морепродуктами','740'],['greek','Греческий салат','500']].map(([k,n,p])=>`<div class="gc"><img src="${I[k]}"><div>${n}<p>${p} ₽</p><span class="plus">+</span></div></div>`).join('')}</div><div class="glass" style="background:var(--acc);color:#fff"><span><i style="background:#fff;color:var(--acc)">2</i>Мой заказ</span><span>1 450 ₽</span></div>`;
+if(v==='C') m=`${head}<div class="pc"><span class="on">Пиццы</span><span>Пасты</span><span>Гриль</span><span>Вок</span></div>${guests()}<div class="bigc"><img src="${I.pizza}"><div class="t"><div><b>Пицца охотничья</b><small>Колбаски, ветчина, моцарелла · 35 см</small></div><div style="text-align:right"><div class="pr">750 ₽</div></div></div></div><div class="bigc"><img src="${I.pasta}"><div class="t"><div><b>Паста с морепродуктами</b><small>Мидии, креветки, кальмары · 300 г</small></div><span class="plus">+</span></div></div><div class="glass"><span><i>2</i>Мой заказ</span><span>1 450 ₽</span></div>`;
+const bill=`<div class="ph-head" style="padding-top:8px"><div><b style="font-size:30px;letter-spacing:-.04em">Счёт стола</b><small>Кто сколько должен</small></div></div><div class="gh ghs" style="margin-top:10px"></div><div class="card"><div class="g"><span class="a" style="background:#e8452c">А</span><div>Аня<small>блюда 825 ₽ + общее 125 ₽</small></div><em>950 ₽</em></div><div class="g"><span class="a" style="background:#1e3f96">П</span><div>Пётр<small>блюда 1 260 ₽ + общее 125 ₽</small></div><em>1 385 ₽</em></div><div class="tot"><span>Итого по столу</span><b>2 335 ₽</b></div></div><div class="seg"><span class="on">Раздельно</span><span>Одним чеком</span></div><div class="seg"><span>Наличные</span><span class="on">Карта</span><span>СБП</span></div><div class="seg"><span class="on">Без чаевых</span><span>5%</span><span>10%</span></div><div class="cta">Готовы оплатить</div><div class="fine">Официант подойдёт со счётом и терминалом</div>`;
+document.body.innerHTML=`<div class="stage"><div class="tag"><b>Вариант ${T.n}</b>${T.t}<span>${T.d}</span></div>
+<div class="browser"><div class="bar"><i></i><i></i><i></i><u>dacha-cafe.ru</u></div>${nav}${hero}${v==='C'?'':cats+dl}</div>
+<div class="phone p1"><div class="screen"><div class="sb"><span>9:41</span><span>●●●</span></div>${m}</div></div>
+<div class="phone p2"><div class="screen"><div class="sb"><span>9:41</span><span>●●●</span></div>${bill}</div></div></div>`;
+</script>
+</body>
+</html>
