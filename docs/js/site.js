@@ -145,7 +145,7 @@ function Header({ cfg, count: n, onCart }) {
   return html`<header class="site-header">
     <div class="gingham-strip"></div>
     <div class="container site-header-row">
-      <a class="brand" href="C:/Program Files/Git/dacha-cafe/" aria-label=${cfg.brand.full}>
+      <a class="brand" href="/dacha-cafe/" aria-label=${cfg.brand.full}>
         <${Plaque}>${cfg.brand.name}<//>
         <span class="brand-sub">для<br />друзей</span>
       </a>
@@ -462,7 +462,7 @@ function Checkout({ open, onClose, cfg, lines, index, onChanged, onDone }) {
       </div>
 
       <div class="form-section">
-        <label class="check"><input type="checkbox" checked=${consent} aria-invalid=${invalid('consent')} onChange=${(e) => setConsent(e.currentTarget.checked)} /><span>Я согласен на обработку персональных данных для выполнения заказа. <a href="C:/Program Files/Git/dacha-cafe/privacy.html" target="_blank" rel="noopener">Политика конфиденциальности</a></span></label>
+        <label class="check"><input type="checkbox" checked=${consent} aria-invalid=${invalid('consent')} onChange=${(e) => setConsent(e.currentTarget.checked)} /><span>Я согласен на обработку персональных данных для выполнения заказа. <a href="/dacha-cafe/privacy.html" target="_blank" rel="noopener">Политика конфиденциальности</a></span></label>
         ${bad.consent && html`<span class="hint" style="color:var(--danger)">${bad.consent}</span>`}
       </div>
     </div>
@@ -681,7 +681,7 @@ function ReserveForm({ cfg }) {
       </div>
       <div class="field span-2"><label for="r-comment">Комментарий</label><textarea id="r-comment" class="textarea" maxlength="300" placeholder=${kind === 'banquet' ? 'Повод, пожелания по меню, нужен ли ведущий' : 'Например: детский стульчик, окно'} value=${f.comment} onInput=${(e) => set('comment', e.currentTarget.value)}></textarea></div>
     </div>
-    <label class="check"><input type="checkbox" checked=${consent} onChange=${(e) => setConsent(e.currentTarget.checked)} /><span>Согласен на обработку персональных данных. <a href="C:/Program Files/Git/dacha-cafe/privacy.html" target="_blank" rel="noopener">Политика конфиденциальности</a></span></label>
+    <label class="check"><input type="checkbox" checked=${consent} onChange=${(e) => setConsent(e.currentTarget.checked)} /><span>Согласен на обработку персональных данных. <a href="/dacha-cafe/privacy.html" target="_blank" rel="noopener">Политика конфиденциальности</a></span></label>
     ${error && html`<div class="notice notice-danger"><${Icon} name="warn" /><span>${error}</span></div>`}
     <button class="btn btn-lg" type="submit" disabled=${busy || !times.length}>${busy ? 'Отправляем…' : 'Отправить заявку'}</button>
   </form>`;
@@ -691,10 +691,10 @@ function Footer({ cfg }) {
   return html`<footer class="site-footer">
     <div class="container">
       <div style="display:grid;gap:14px">
-        <a class="brand" href="C:/Program Files/Git/dacha-cafe/"><${Plaque}>${cfg.brand.name}<//><span class="brand-sub">для<br />друзей</span></a>
+        <a class="brand" href="/dacha-cafe/"><${Plaque}>${cfg.brand.name}<//><span class="brand-sub">для<br />друзей</span></a>
         <p>${cfg.brand.tagline}. ${cfg.contacts.address}, ${cfg.contacts.place}.</p>
       </div>
-      <div class="footer-links"><a href="C:/Program Files/Git/dacha-cafe/privacy.html">Политика конфиденциальности</a>${cfg.contacts.vk && html`<a href=${cfg.contacts.vk} target="_blank" rel="noopener">ВКонтакте</a>`}<a href=${telHref(cfg.contacts.phone)}>${cfg.contacts.phone}</a></div>
+      <div class="footer-links"><a href="/dacha-cafe/privacy.html">Политика конфиденциальности</a>${cfg.contacts.vk && html`<a href=${cfg.contacts.vk} target="_blank" rel="noopener">ВКонтакте</a>`}<a href=${telHref(cfg.contacts.phone)}>${cfg.contacts.phone}</a></div>
     </div>
   </footer>`;
 }
